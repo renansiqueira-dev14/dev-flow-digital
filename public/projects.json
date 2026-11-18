@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Site de salão de beleza",
+    "slug": "salao-beleza",
+    "segment": "Beleza",
+    "description": "Apresentação de serviços, escolha de profissional e fluxo visual para solicitar ou reagendar horários.",
+    "image": "/projects/salao-beleza.jpg",
+    "demoUrl": "/project-demos/salao/index.html",
+    "serviceId": "sites"
+  },
+  {
+    "name": "Site para pet shop",
+    "slug": "pet-shop",
+    "segment": "Pet shop",
+    "description": "Site de serviços para pets com apresentação de banho e tosa, agendamento e opções de assinatura.",
+    "image": "/projects/petshop.jpg",
+    "demoUrl": "/project-demos/petshop/index.html",
+    "serviceId": "sites"
+  },
+  {
+    "name": "Painel de buscas e entregas",
+    "slug": "painel-entregas",
+    "segment": "Logística",
+    "description": "Painel para motorista consultar rotas, filtrar pedidos e acompanhar as etapas de busca e entrega.",
+    "image": "/projects/painel-entregas.svg",
+    "demoUrl": "/project-demos/buscaentrega/index.html",
+    "serviceId": "clientes"
+  },
+  {
+    "name": "Cardápio digital e pedidos",
+    "slug": "cardapio-digital",
+    "segment": "Restaurantes",
+    "description": "Cardápio por categorias com busca, adicionais, sacola e fluxo demonstrativo de pedidos para celular.",
+    "image": "/projects/cardapio-online50k.png",
+    "demoUrl": "/project-demos/cardapio/index.html",
+    "serviceId": "sites"
+  }
+]
