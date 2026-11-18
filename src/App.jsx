@@ -230,7 +230,7 @@ function Home() {
   return <main>
     <section className="hero services-hero"><div className="hero-grid"/><div className="container services-hero-content">
       <div className="services-hero-heading"><span className="eyebrow hero-eyebrow"><i/>DEVFLOW DIGITAL · SOLUÇÕES PARA EMPRESAS</span>
-        <h1>Seu negócio merece soluções digitais <em>à altura.</em></h1>
+        <h1><span className="hero-heading-line">Seu negócio merece</span>{' '}<span className="hero-heading-line">soluções digitais <em>à altura.</em></span></h1>
         <p>Criamos sites profissionais, sistemas para organizar clientes e vendas, e agentes de inteligência artificial para ajudar sua empresa a crescer e conquistar clientes.</p>
         <div className="hero-actions"><a className="button" href="#servicos">Conheça nossas soluções <ArrowDown size={15}/></a><a className="button button-outline" href="#contato">Fale com a DevFlow <ArrowUpRight size={15}/></a></div>
       </div>
