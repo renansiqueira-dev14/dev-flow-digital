@@ -13,14 +13,17 @@ const planetIcons = { sites: Monitor, clientes: ContactRound, ia: Bot }
 const segmentIcons = { restaurantes: Utensils, distribuidoras: Boxes, lojas: Store, servicos: BriefcaseBusiness, crescimento: TrendingUp }
 const formatCurrency = value => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value)
 const whatsappHref = message => `https://wa.me/${studio.whatsapp}${message ? `?text=${encodeURIComponent(message)}` : ''}`
+const publicUrl = path => path?.startsWith('/') ? `${import.meta.env.BASE_URL}${path.slice(1)}` : path
+const projectsUrl = `${import.meta.env.BASE_URL}projects.json`
+const withPublicUrls = project => ({ ...project, image: publicUrl(project.image), demoUrl: publicUrl(project.demoUrl) })
 
 function usePortfolioProjects() {
   const [projects, setProjects] = useState([])
   useEffect(() => {
     const controller = new AbortController()
-    fetch('/projects.json', { signal: controller.signal, cache: 'no-store' })
+    fetch(projectsUrl, { signal: controller.signal, cache: 'no-store' })
       .then(response => response.ok ? response.json() : [])
-      .then(data => setProjects(Array.isArray(data) ? data.filter(item => item?.name && item?.segment) : []))
+      .then(data => setProjects(Array.isArray(data) ? data.filter(item => item?.name && item?.segment).map(withPublicUrls) : []))
       .catch(() => setProjects([]))
     return () => controller.abort()
   }, [])
@@ -29,7 +32,7 @@ function usePortfolioProjects() {
 
 function Brand({ footer = false }) {
   return <Link className={`brand ${footer ? 'brand-footer' : ''}`} to="/" aria-label="DevFlow Digital, início">
-    <img className="brand-logo" src="/logo-dfd.png" alt="" />
+    <img className="brand-logo" src={publicUrl('/logo-dfd.png')} alt="" />
     <span className="brand-name">devflow<span>digital</span></span>
   </Link>
 }
@@ -205,7 +208,7 @@ function ServicesPlanet() {
         onPointerDown={event => { if (event.button !== 0) return; event.preventDefault(); event.currentTarget.setPointerCapture(event.pointerId); dragPoint.current = { ...dragPoint.current, x: event.clientX, y: event.clientY }; setDragging(true); setActive('planet') }}
         onPointerMove={event => { if (!dragging) return; const dx = event.clientX - dragPoint.current.x; const dy = event.clientY - dragPoint.current.y; dragPoint.current.x = event.clientX; dragPoint.current.y = event.clientY; dragPoint.current.rotation = Math.max(-58, Math.min(58, dragPoint.current.rotation + dx * .85)); dragPoint.current.tilt = Math.max(-32, Math.min(32, dragPoint.current.tilt + dy * .65)); const universe = event.currentTarget.closest('.service-universe'); universe.style.setProperty('--drag-rotation', `${dragPoint.current.rotation}deg`); universe.style.setProperty('--drag-tilt', `${dragPoint.current.tilt}deg`); universe.style.setProperty('--image-rotation', `${-dragPoint.current.rotation}deg`) }}
         onPointerUp={stopDrag} onPointerCancel={stopDrag} onLostPointerCapture={stopDrag}>
-        <img src="/logo-dfd.png" alt="" draggable="false"/><span>DEVFLOW DIGITAL</span>
+        <img src={publicUrl('/logo-dfd.png')} alt="" draggable="false"/><span>DEVFLOW DIGITAL</span>
       </div>
     </div>
     <div className="universe-caption"><span className="status-dot"/>SITES · GESTÃO DE CLIENTES · AGENTES DE IA</div>
@@ -271,9 +274,12 @@ function ProjectDemoPage() {
   const [loaded, setLoaded] = useState(false)
   useEffect(() => {
     const controller = new AbortController()
-    fetch('/projects.json', { signal: controller.signal, cache: 'no-store' })
+    fetch(projectsUrl, { signal: controller.signal, cache: 'no-store' })
       .then(response => response.ok ? response.json() : [])
-      .then(data => setProject(Array.isArray(data) ? data.find(item => item.slug === slug) || null : null))
+      .then(data => {
+        const match = Array.isArray(data) ? data.find(item => item.slug === slug) : null
+        setProject(match ? withPublicUrls(match) : null)
+      })
       .catch(() => setProject(null))
       .finally(() => setLoaded(true))
     return () => controller.abort()
