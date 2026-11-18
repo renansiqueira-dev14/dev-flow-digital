@@ -187,7 +187,7 @@ function ServicesPlanet() {
         </Link>
       })}
       <span className="orbit-particle particle-one"/><span className="orbit-particle particle-two"/><span className="orbit-particle particle-three"/><span className="planet-halo"/>
-      <div className="planet-body" style={{ translate: '0 -8px' }} role="button" tabIndex="0" aria-label="Planeta DevFlow. Use as setas para girar e inclinar, ou segure e arraste com o mouse."
+      <div className="planet-body" style={{ translate: '-50% calc(-50% - 8px)' }} role="button" tabIndex="0" aria-label="Planeta DevFlow. Use as setas para girar e inclinar, ou segure e arraste com o mouse."
         onKeyDown={event => {
           if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', ' ', 'Enter'].includes(event.key)) return
           event.preventDefault()
