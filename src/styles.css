@@ -346,3 +346,6 @@ html,body{overflow-x:clip}
  .service-node-ia{width:120px}
  .services-hero>.container.hero-bottom{width:calc(100vw - 30px)}
 }
+@media (min-width:901px){
+  .services-preview .service-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
