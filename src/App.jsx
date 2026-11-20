@@ -2,10 +2,11 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, Route, Routes, useLocation, useParams } from 'react-router-dom'
 import {
   ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight, Bell, Bot, Boxes, BriefcaseBusiness,
-  Building2, Check, ChevronDown, ContactRound, Instagram, LayoutDashboard, Menu,
+  Check, ChevronDown, ContactRound, Instagram, LayoutDashboard, Menu,
   MessageCircle, Monitor, Send, Store, TrendingUp, Utensils, X,
 } from 'lucide-react'
-import { differentiators, processSteps, projectSlots, segments, services, serviceDetails, segmentDetails, studio } from './content'
+import { processSteps, projectSlots, segments, services, serviceDetails, segmentDetails, studio } from './content'
+import projectCatalog from './projects.json'
 
 const nav = [['Início', '/'], ['Projetos', '/projetos'], ['Serviços', '/servicos'], ['Sobre', '/sobre'], ['Contato', '/contato']]
 const planetServices = services.filter(service => ['sites', 'clientes', 'ia'].includes(service.id))
@@ -14,20 +15,10 @@ const segmentIcons = { restaurantes: Utensils, distribuidoras: Boxes, lojas: Sto
 const formatCurrency = value => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value)
 const whatsappHref = message => `https://wa.me/${studio.whatsapp}${message ? `?text=${encodeURIComponent(message)}` : ''}`
 const publicUrl = path => path?.startsWith('/') ? `${import.meta.env.BASE_URL}${path.slice(1)}` : path
-const projectsUrl = `${import.meta.env.BASE_URL}projects.json`
 const withPublicUrls = project => ({ ...project, image: publicUrl(project.image), demoUrl: publicUrl(project.demoUrl) })
 
 function usePortfolioProjects() {
-  const [projects, setProjects] = useState([])
-  useEffect(() => {
-    const controller = new AbortController()
-    fetch(projectsUrl, { signal: controller.signal, cache: 'no-store' })
-      .then(response => response.ok ? response.json() : [])
-      .then(data => setProjects(Array.isArray(data) ? data.filter(item => item?.name && item?.segment).map(withPublicUrls) : []))
-      .catch(() => setProjects([]))
-    return () => controller.abort()
-  }, [])
-  return projects
+  return projectCatalog.filter(item => item?.name && item?.segment).map(withPublicUrls)
 }
 
 function Brand({ footer = false }) {
@@ -51,7 +42,7 @@ function Header() {
 function Footer() {
   return <footer className="footer"><div className="container">
     <div className="footer-top"><div><Brand footer /><p className="footer-desc">Sites, gestão de clientes e inteligência artificial para negócios reais.</p></div>
-      <div className="footer-links"><span className="eyebrow">NAVEGUE</span>{nav.slice(1).map(([label, href]) => <Link key={href} to={href}>{label}</Link>)}</div>
+      <div className="footer-links"><span className="eyebrow">NAVEGUE</span>{nav.slice(1).map(([label, href]) => <Link key={href} to={href}>{label}</Link>)}<Link to="/privacidade">Privacidade</Link></div>
       <div className="footer-links"><span className="eyebrow">CONTATO</span>
         {studio.whatsapp ? <a href={`https://wa.me/${studio.whatsapp}`} target="_blank" rel="noreferrer">WhatsApp · {studio.phone} <ArrowUpRight size={13} /></a> : <span className="footer-pending">WhatsApp a informar</span>}
         {studio.email ? <a href={`mailto:${studio.email}`}>{studio.email} <ArrowUpRight size={13} /></a> : <span className="footer-pending">E-mail comercial a informar</span>}
@@ -96,7 +87,7 @@ function DemoCallToAction({ serviceId }) {
 function SitesDemo() {
   const examples = {
     pizzaria: { kind: 'PIZZARIA', name: 'Casa Brasa', hero: '/demo/pizzaria-hero.jpg', eyebrow: 'PIZZAS ARTESANAIS · FORNO QUENTE', headline: 'Uma boa noite começa com pizza de verdade.', intro: 'Receitas feitas na hora, ingredientes frescos e o sabor certo para dividir com quem você gosta.', heroCaption: 'MASSA ARTESANAL · INGREDIENTES FRESCOS', sectionEyebrow: 'DO FORNO PARA A SUA MESA', sectionTitle: 'Cardápio da Casa', sectionIntro: 'Escolha um sabor, veja os ingredientes e personalize os adicionais do seu pedido.', contactTitle: 'Como você prefere receber?', contactIntro: 'Peça para entrega ou retire quentinha no balcão.', hours: 'Todos os dias · 18h às 23h', contactLabel: 'Pedidos e dúvidas', reviewsTitle: 'Sabor que reúne todo mundo', reviews: ['Massa leve, recheio generoso e chegou quentinha.', 'A combinação de sabores virou a escolha da família.', 'Pedido simples de fazer e pizza muito bem preparada.'], items: [{ title: 'Margherita', tag: 'CLÁSSICA DA CASA', description: 'Muçarela, tomate fresco, manjericão e molho artesanal.', price: 'A partir de R$ 38', image: '/demo/pizza-margherita.jpg', alt: 'Pizza margherita artesanal com manjericão' }, { title: 'Calabresa da Casa', tag: 'A MAIS PEDIDA', description: 'Calabresa, cebola roxa, muçarela e orégano.', price: 'A partir de R$ 42', image: '/demo/pizza-calabresa.jpg', alt: 'Pizza artesanal de calabresa para compartilhar' }, { title: 'Quatro Queijos', tag: 'CREMOSA E DOURADA', description: 'Muçarela, gorgonzola, provolone e parmesão.', price: 'A partir de R$ 46', image: '/demo/pizza-quatro-queijos.jpg', alt: 'Pizza de quatro queijos com manjericão' }], contactCards: [{ title: 'Entrega em casa', kicker: 'PRÁTICO E QUENTINHO', description: 'Monte seu pedido e escolha os sabores e adicionais.', action: 'Montar pedido', image: '/demo/pizza-combo.jpg', alt: 'Pizzas diferentes prontas para compartilhar' }, { title: 'Retirada no balcão', kicker: 'PASSE PARA BUSCAR', description: 'Peça antes e retire no horário combinado.', action: 'Escolher retirada', image: '/demo/pizza-pepperoni.jpg', alt: 'Pizza pepperoni pronta para retirada' }] },
-    barbearia: { kind: 'BARBEARIA', name: 'Barbearia Vitrine', liveUrl: 'https://barbearia-vitrine.vercel.app/#home', repoUrl: 'https://github.com/ronaldandrade25/barbearia-vitrine' },
+    barbearia: { kind: 'BARBEARIA', name: 'Barbearia Rodrigo dos Anjos', demoUrl: '/project-demos/barbearia/index.html', repoUrl: 'https://github.com/ronaldandrade25/barbearia-vitrine' },
     oficina: { kind: 'OFICINA MECÂNICA', name: 'Oficina Torque', hero: '/demo/oficina-hero.jpg', eyebrow: 'MECÂNICA DE CONFIANÇA · CUIDADO COMPLETO', headline: 'Seu carro em boas mãos. E você por dentro de cada etapa.', intro: 'Avaliação cuidadosa, explicação sem complicação e serviços feitos com atenção ao seu veículo.', heroCaption: 'DIAGNÓSTICO CLARO · SERVIÇO COM CUIDADO', sectionEyebrow: 'MANUTENÇÃO COM TRANSPARÊNCIA', sectionTitle: 'Serviços da Oficina', sectionIntro: 'Entenda o que cada serviço verifica e peça uma avaliação para o seu carro.', contactTitle: 'Agende a avaliação do seu veículo', contactIntro: 'Conte o que percebeu. A equipe avalia e explica as opções antes de iniciar o serviço.', hours: 'Segunda a sábado · 8h às 18h', contactLabel: 'Agendamento e orçamento', reviewsTitle: 'Confiança em cada etapa', reviews: ['Explicaram o diagnóstico e o orçamento antes de começar.', 'Atendimento atencioso e serviço explicado com clareza.', 'Consegui acompanhar o que precisava ser feito no meu carro.'], items: [{ title: 'Revisão preventiva', tag: 'CUIDADO EM DIA', description: 'Verificação de óleo, filtros, correias e itens de segurança.', price: 'Solicite avaliação', image: '/demo/oficina-servicos.jpg', alt: 'Mecânico fazendo troca de óleo no veículo' }, { title: 'Diagnóstico do motor', tag: 'AVALIAÇÃO TÉCNICA', description: 'Análise do motor e identificação de sinais de falha.', price: 'Solicite avaliação', image: '/demo/oficina-diagnostico.jpg', alt: 'Mecânico avaliando o motor de um veículo' }, { title: 'Freios e suspensão', tag: 'SEGURANÇA AO DIRIGIR', description: 'Inspeção dos componentes e orientação sobre os reparos necessários.', price: 'Solicite avaliação', image: '/demo/oficina-freios.jpg', alt: 'Veículo sendo inspecionado em oficina mecânica' }], contactCards: [{ title: 'Avaliação com a equipe', kicker: 'EXPLIQUE O QUE ACONTECEU', description: 'Relate ruídos, alertas no painel ou mudanças ao dirigir.', action: 'Solicitar avaliação', image: '/demo/oficina-equipe.jpg', alt: 'Equipe mecânica em uma oficina automotiva' }, { title: 'Manutenção programada', kicker: 'REVISÃO E PREVENÇÃO', description: 'Agende uma revisão e tire suas dúvidas antes do serviço.', action: 'Agendar revisão', image: '/demo/oficina-suspensao.jpg', alt: 'Peças automotivas em manutenção profissional' }] },
   }
   const [kind, setKind] = useState('pizzaria')
@@ -108,11 +99,11 @@ function SitesDemo() {
     setNotice(kind === 'pizzaria' ? `${item.title} selecionada. Tamanho, adicionais e atendimento serão configurados para a pizzaria real.` : `${item.title} selecionado. O agendamento será configurado para a oficina real.`)
   }
   return <section className="service-demo sites-demo" id="demonstracao-sites" aria-labelledby="sites-demo-title">
-    <div className="service-demo-heading"><div><span className="eyebrow"><i/>DEMONSTRAÇÃO DE SITES</span><h2 id="sites-demo-title">Seu cliente encontra o que precisa sem esperar uma resposta?</h2><p>Veja como um site pode apresentar serviços, produtos, horários e contato para a pessoa decidir o próximo passo. Troque o exemplo entre barbearia, pizzaria e oficina.</p></div><span className="demo-disclaimer"><span/> {selected.liveUrl ? 'SITE RECEBIDO PARA DEMONSTRAÇÃO' : 'EXEMPLO VISUAL · CONTEÚDO FICTÍCIO'}</span></div>
+    <div className="service-demo-heading"><div><span className="eyebrow"><i/>DEMONSTRAÇÃO DE SITES</span><h2 id="sites-demo-title">Seu cliente encontra o que precisa sem esperar uma resposta?</h2><p>Veja como um site pode apresentar serviços, produtos, horários e contato para a pessoa decidir o próximo passo. Troque o exemplo entre barbearia, pizzaria e oficina.</p></div><span className="demo-disclaimer"><span/> {selected.demoUrl ? 'PRÉVIA LOCAL · PROJETO RECEBIDO' : 'EXEMPLO VISUAL · CONTEÚDO FICTÍCIO'}</span></div>
     <div className="demo-picker" role="group" aria-label="Escolha um exemplo de site">{Object.entries(examples).map(([key, item]) => <button type="button" key={key} aria-pressed={kind === key} className={kind === key ? 'selected' : ''} onClick={() => { setKind(key); setNotice(''); setCartCount(0) }}>{item.kind}</button>)}</div>
     <div className="site-demo-window"><div className="demo-browserbar"><span className="browser-dots"><i/><i/><i/></span><span>prévia do site · devflow digital</span><span>ADAPTÁVEL AO CELULAR</span></div>
-      {selected.liveUrl ? <div className="site-live-preview"><div className="site-live-toolbar"><span>Prévia do site da barbearia</span><div><a href={selected.repoUrl} target="_blank" rel="noreferrer">Repositório <ArrowUpRight size={12}/></a><a href={selected.liveUrl} target="_blank" rel="noreferrer">Abrir site <ArrowUpRight size={12}/></a></div></div><iframe title="Site de demonstração da Barbearia Vitrine" src={selected.liveUrl} loading="lazy" sandbox="allow-scripts allow-same-origin allow-forms" referrerPolicy="no-referrer" /></div> : <BusinessSitePreview kind={kind} business={selected} onAction={act} cartCount={cartCount} />}
-    </div><p className="service-demo-caption" aria-live="polite">{selected.liveUrl ? 'Esta prévia carrega o site público ligado ao repositório recebido; use os atalhos para abrir o projeto ou consultar o código.' : notice || 'Observe como o cliente pode conhecer os serviços, ver fotos e avaliações, encontrar as informações principais e iniciar um pedido ou agendamento. Os dados são fictícios e podem ser personalizados.'}</p><DemoCallToAction serviceId="sites"/>
+      {selected.demoUrl ? <div className="site-live-preview"><div className="site-live-toolbar"><span>Prévia local · sem envio de solicitações</span><div><a href={selected.repoUrl} target="_blank" rel="noreferrer">Repositório de referência <ArrowUpRight size={12}/></a><a href={publicUrl(selected.demoUrl)} target="_blank" rel="noreferrer">Abrir prévia <ArrowUpRight size={12}/></a></div></div><iframe title="Demonstração local de site para barbearia" src={publicUrl(selected.demoUrl)} loading="lazy" sandbox="allow-scripts allow-same-origin allow-forms" referrerPolicy="no-referrer" /></div> : <BusinessSitePreview kind={kind} business={selected} onAction={act} cartCount={cartCount} />}
+    </div><p className="service-demo-caption" aria-live="polite">{selected.demoUrl ? 'Prévia local baseada no repositório informado. O agendamento é apenas demonstrativo; não há conexão com banco, mensagens ou pagamentos.' : notice || 'Observe como o cliente pode conhecer os serviços, ver fotos e avaliações, encontrar as informações principais e iniciar um pedido ou agendamento. Os dados são fictícios e podem ser personalizados.'}</p><DemoCallToAction serviceId="sites"/>
   </section>
 }
 
@@ -220,7 +211,7 @@ function ProjectCard({ project, index = 0 }) {
   const destination = project.slug ? `/projetos/${project.slug}` : project.demoUrl || project.url
   const content = <><div className={`project-art ${project.image ? 'has-image' : ''}`} style={project.image ? { backgroundImage: `linear-gradient(0deg,rgba(17,18,15,.64),rgba(17,18,15,.04)),url("${project.image}")` } : undefined}>
     {!project.image && <span className="art-icon"><LayoutDashboard size={30}/></span>}<span className="art-index">0{index + 1}</span><span className="art-label">{project.segment}</span>
-  </div><div className="project-info"><span className="eyebrow">{project.segment}</span><h3>{title}</h3><p>{project.description}</p>{destination && <span className="project-view">Ver demonstração <ArrowUpRight size={14}/></span>}</div></>
+  </div><div className="project-info"><span className="eyebrow">{project.segment} · {project.status || 'Demonstração'}</span><h3>{title}</h3><p>{project.description}</p>{destination && <span className="project-view">Ver demonstração <ArrowUpRight size={14}/></span>}</div></>
   return <article className="project-card">{destination ? <Link to={destination} aria-label={`Abrir demonstração de ${title}`}>{content}</Link> : content}</article>
 }
 
@@ -249,7 +240,7 @@ function Home() {
       <div className="segments-list">{segments.map((segment, index) => { const Icon = segmentIcons[segment.id]; return <article className="segment-row" key={segment.id}><Link className="segment-row-link" to={`/segmentos/${segment.id}`}><span className="segment-number">0{index + 1}</span><span className="segment-icon"><Icon size={19}/></span><div className="segment-main"><h3>{segment.name}</h3><p>{segment.examples.join(' · ')}</p></div><ArrowUpRight className="segment-arrow" size={17}/></Link></article> })}</div>
     </div></section>
 
-    <section className="section portfolio-preview" id="projetos"><div className="container"><SectionHeading eyebrow="PORTFÓLIO" title={<>Projetos feitos para<br/><em>negócios reais.</em></>} text="A área está preparada para receber trabalhos da DevFlow Digital." link="Ver espaço de projetos" to="/projetos"/>
+    <section className="section portfolio-preview" id="projetos"><div className="container"><SectionHeading eyebrow="DEMONSTRAÇÕES" title={<>Soluções pensadas para<br/><em>diferentes negócios.</em></>} text="Pré-visualizações interativas para mostrar como sites e sistemas podem funcionar em cada segmento." link="Ver todas as demonstrações" to="/projetos"/>
       {projects.length ? <div className="project-grid">{projects.slice(0, 4).map((project, index) => <ProjectCard key={`${project.name}-${index}`} project={project} index={index}/>)}{projectSlots.slice(projects.slice(0, 4).length).map((segment, index) => <ProjectPlaceholder key={segment} segment={segment} index={projects.slice(0, 4).length + index}/>)}</div> : <div className="portfolio-empty"><span className="empty-mark"><LayoutDashboard size={22}/></span><p><strong>Portfólio em atualização.</strong><br/>Quatro espaços estão preparados para receber projetos. Nenhum cliente ou trabalho fictício foi adicionado.</p><Link to="/projetos" className="text-link">Conheça os espaços reservados <ArrowRight size={15}/></Link></div>}
     </div></section>
 
@@ -261,7 +252,7 @@ function PageHero({ eyebrow, title, text }) { return <section className="page-he
 
 function ProjectsPage() {
   const projects = usePortfolioProjects()
-  return <main><PageHero eyebrow="PORTFÓLIO" title={<>Projetos para<br/><em>negócios reais.</em></>} text="Explore quatro exemplos interativos de soluções digitais para diferentes tipos de negócio."/>
+  return <main><PageHero eyebrow="DEMONSTRAÇÕES" title={<>Soluções para<br/><em>ver em funcionamento.</em></>} text="Explore quatro prévias interativas. Os dados e operações exibidos são demonstrativos; eles não representam clientes, vendas ou resultados comerciais da DevFlow."/>
     <section className="section page-projects"><div className="container">
       {projects.length ? <div className="project-grid">{projects.slice(0, 4).map((project, index) => <ProjectCard key={`${project.name}-${index}`} project={project} index={index}/>)}</div> : <><div className="portfolio-empty"><span className="empty-mark"><LayoutDashboard size={22}/></span><p><strong>Portfólio em atualização.</strong><br/>Os espaços abaixo estão prontos para receber descrições e imagens dos projetos.</p></div><div className="project-grid slot-grid">{projectSlots.map((segment, index) => <ProjectPlaceholder key={segment} segment={segment} index={index}/>)}</div></>}
     </div></section>
@@ -270,28 +261,15 @@ function ProjectsPage() {
 
 function ProjectDemoPage() {
   const { slug } = useParams()
-  const [project, setProject] = useState(null)
-  const [loaded, setLoaded] = useState(false)
-  useEffect(() => {
-    const controller = new AbortController()
-    fetch(projectsUrl, { signal: controller.signal, cache: 'no-store' })
-      .then(response => response.ok ? response.json() : [])
-      .then(data => {
-        const match = Array.isArray(data) ? data.find(item => item.slug === slug) : null
-        setProject(match ? withPublicUrls(match) : null)
-      })
-      .catch(() => setProject(null))
-      .finally(() => setLoaded(true))
-    return () => controller.abort()
-  }, [slug])
-
-  if (!loaded) return <main><PageHero eyebrow="DEMONSTRAÇÃO" title={<>Abrindo o <em>projeto.</em></>} text="Carregando a prévia incorporada."/></main>
-  if (!project) return <NotFound />
+  const data = projectCatalog.find(item => item.slug === slug)
+  if (!data) return <NotFound />
+  const project = withPublicUrls(data)
   return <main><PageHero eyebrow={`${project.segment.toUpperCase()} · DEMONSTRAÇÃO`} title={<>{project.name}</>} text={project.description}/>
     <section className="section project-demo-detail"><div className="container">
-      <div className="project-demo-toolbar"><span><i/> PRÉVIA DO SITE DENTRO DO PORTFÓLIO</span><Link className="text-link" to="/projetos"><ArrowLeft size={15}/> Voltar aos projetos</Link></div>
+      <div className="project-demo-toolbar"><span><i/> {project.status || 'DEMONSTRAÇÃO INTERATIVA'}</span><Link className="text-link" to="/projetos"><ArrowLeft size={15}/> Voltar às demonstrações</Link></div>
+      <div className="project-context"><div><span className="eyebrow">OBJETIVO</span><p>{project.objective}</p></div><div><span className="eyebrow">O QUE A PRÉVIA MOSTRA</span><p>{project.features?.join(' · ')}</p></div></div>
       <div className="project-iframe-shell"><iframe src={project.demoUrl} title={`Demonstração: ${project.name}`} loading="eager" sandbox="allow-scripts allow-forms allow-same-origin" referrerPolicy="no-referrer" allow="fullscreen"/></div>
-      <p className="project-demo-note">Esta prévia é incorporada ao portfólio. Formulários, agenda, mensagens e dados que dependem de serviços externos aparecem apenas como demonstração; nenhuma solicitação é enviada.</p>
+      <p className="project-demo-note">Projeto demonstrativo, sem vínculo comercial presumido com o estabelecimento retratado. Os cadastros, agendas, pedidos, avaliações e dados são de exemplo; não envie informações pessoais nem use a prévia para fazer pedidos ou agendamentos reais.</p>
       <DemoCallToAction serviceId={project.serviceId || 'sites'}/>
     </div></section>
   </main>
@@ -452,9 +430,15 @@ function SegmentDetailPage({ segmentId }) {
 }
 
 function AboutPage() {
-  return <main><PageHero eyebrow="SOBRE A DEVFLOW" title={<>Tecnologia<br/>com <em>intenção.</em></>} text="Um espaço para apresentar a história, a visão e os valores por trás da DevFlow Digital."/>
-    <section className="section about-page"><div className="container about-page-grid"><span className="eyebrow"><i/>SOBRE A EMPRESA</span><div><div className="about-placeholder"><span className="placeholder-icon"><Building2 size={24}/></span><span className="eyebrow">APRESENTAÇÃO DA EMPRESA</span><p>{studio.about}</p></div><p className="about-instruction">Quando você enviar seu texto, este espaço será atualizado com a apresentação da empresa.</p></div></div></section>
-    <section className="section why-section"><div className="container"><span className="eyebrow"><i/>NOSSO COMPROMISSO</span><ul className="benefit-list">{differentiators.map((item, index) => <li key={item}><span>0{index + 1}</span><Check size={16}/><p>{item}</p></li>)}</ul></div></section>
+  return <main><PageHero eyebrow="SOBRE A DEVFLOW" title={<>Tecnologia<br/>com <em>intenção.</em></>} text="Soluções digitais planejadas a partir das necessidades e da rotina de cada negócio."/>
+    <section className="section about-page"><div className="container about-page-grid"><span className="eyebrow"><i/>O QUE FAZEMOS</span><div><p>{studio.about}</p><div className="about-offerings"><article><span>01 · PRESENÇA DIGITAL</span><h2>Sites personalizados</h2><p>Apresentam serviços, produtos e informações importantes com caminhos claros para contato, orçamento ou pedido.</p></article><article><span>02 · ORGANIZAÇÃO</span><h2>Clientes e vendas</h2><p>Sistemas podem reunir contatos, negociações, produtos, valores vendidos e formas de pagamento de acordo com o processo da empresa.</p></article><article><span>03 · AUTOMAÇÃO</span><h2>Agentes de IA</h2><p>Automatizam tarefas delimitadas, como responder dúvidas comuns e organizar solicitações; integrações e limites são definidos no projeto.</p></article></div></div></div></section>
+    <section className="section why-section"><div className="container"><span className="eyebrow"><i/>COMO TRABALHAMOS</span><div className="about-process">{processSteps.map((step, index) => <article key={step.title}><span>0{index + 1}</span><h2>{step.title}</h2><p>{step.text}</p></article>)}</div><div className="about-next-step"><div><strong>Como iniciar</strong><p>Explique o que está acontecendo no seu negócio. A conversa inicial serve para entender a necessidade e avaliar o próximo passo; escopo, prazo, valores e suporte são combinados antes do desenvolvimento.</p></div><Link className="button" to="/contato">Conte seu caso <ArrowUpRight size={15}/></Link></div></div></section>
+  </main>
+}
+
+function PrivacyPage() {
+  return <main><PageHero eyebrow="PRIVACIDADE" title={<>Como seus dados<br/><em>são tratados.</em></>} text="Informações sobre o formulário de contato e o encaminhamento da conversa para o WhatsApp."/>
+    <section className="section privacy-page"><div className="container privacy-content"><p>Esta página descreve o funcionamento atual do site DevFlow Digital. O formulário é um meio para iniciar uma conversa comercial; não é um sistema de cadastro ou atendimento integrado.</p><h2>Dados solicitados</h2><p>O formulário solicita nome, empresa, serviço de interesse e uma mensagem. O e-mail é opcional. A validação dos campos ocorre no navegador.</p><h2>Finalidade e encaminhamento</h2><p>Ao continuar, o navegador abre o WhatsApp com uma mensagem preenchida com os dados digitados. Você pode revisar o texto e decidir se deseja enviá-lo. O formulário não envia esses dados para um banco de dados da DevFlow nem mantém uma conta de usuário. Ao abrir o link, o texto é incluído no endereço de encaminhamento ao WhatsApp; se você enviar a mensagem, o WhatsApp/Meta processará a conversa conforme os próprios termos e políticas.</p><h2>O que recomendamos</h2><p>Não inclua senhas, documentos, dados financeiros ou informações sensíveis no formulário. Para pedir correção, remoção ou esclarecer o uso de uma informação já enviada à DevFlow, escreva para <a href={`mailto:${studio.email}`}>{studio.email}</a>. Solicitações relacionadas às cópias mantidas pelo WhatsApp devem ser feitas diretamente à plataforma.</p><h2>Cookies e armazenamento</h2><p>O site não oferece login nem grava os dados do formulário em um serviço próprio. A hospedagem e recursos externos usados pelo navegador podem gerar registros técnicos segundo as políticas dos respectivos provedores. Esta explicação deve ser revisada se o site passar a usar analytics, pixels, banco de dados ou outros serviços.</p><p className="privacy-review-note">Esta descrição é informativa e corresponde ao fluxo observado no site. Ela não substitui revisão jurídica; a empresa deve validar a versão final da política e os canais de atendimento relacionados a dados pessoais.</p><Link className="text-link" to="/contato">Voltar ao contato <ArrowRight size={15}/></Link></div></section>
   </main>
 }
 
@@ -487,9 +471,10 @@ function ContactSection() {
       <label>Empresa<input name="empresa" autoComplete="organization" placeholder="Nome da sua empresa" required/></label>
       <label>Seu e-mail (opcional)<input name="email" type="email" autoComplete="email" placeholder="voce@empresa.com.br"/></label>
       <label>Sobre o que você quer conversar?<span className="select-wrap"><select name="servico" defaultValue="" required><option value="" disabled>Escolha uma opção</option><option value="Ainda não sei — quero explicar meu caso">Ainda não sei — quero explicar meu caso</option>{services.map(service => <option key={service.id} value={service.title}>{service.title}</option>)}</select><ChevronDown size={15}/></span></label>
-      <label>O que você precisa?<textarea name="mensagem" rows="4" placeholder="O que acontece hoje? O que você gostaria que fosse mais fácil?" required/></label>
+      <label>O que você precisa?<textarea name="mensagem" rows="4" maxLength="1000" placeholder="O que acontece hoje? O que você gostaria que fosse mais fácil?" required/></label>
+      <label className="privacy-consent"><input type="checkbox" name="consentimento" required/><span>Li a <Link to="/privacidade" target="_blank" rel="noreferrer">política de privacidade</Link> e entendi que os dados serão incluídos em uma mensagem do WhatsApp para eu revisar e decidir se envio.</span></label>
       <button className="button form-submit" type="submit">Continuar pelo WhatsApp <ArrowUpRight size={16}/></button>
-      <span className="form-note">Vamos abrir uma conversa no WhatsApp com os detalhes preenchidos. Você confere e envia a mensagem por lá.</span>
+      <span className="form-note">O site não recebe nem armazena esta mensagem. O WhatsApp será aberto com os dados preenchidos; revise antes de enviar. Consulte a <Link to="/privacidade">política de privacidade</Link>.</span>
       <p className="form-status" aria-live="polite">{status}</p>
     </form>
   </div></section>
@@ -503,19 +488,31 @@ function NotFound() { return <main className="not-found"><div className="contain
 
 export default function App() {
   const location = useLocation()
-  const currentService = services.find(item => item.detailPath === location.pathname)
-  const currentSegment = segments.find(item => `/segmentos/${item.id}` === location.pathname)
+  const currentPath = location.pathname.replace(/\/+$/, '') || '/'
+  const currentService = services.find(item => item.detailPath === currentPath)
+  const currentSegment = segments.find(item => `/segmentos/${item.id}` === currentPath)
+  const projectMeta = {
+    'salao-beleza': ['Demonstração de site para salão de beleza | DevFlow Digital', 'Prévia interativa de apresentação de serviços e solicitação de horários para um salão de beleza.'],
+    'pet-shop': ['Demonstração de site para pet shop | DevFlow Digital', 'Prévia interativa de serviços de banho e tosa, informações e solicitação de atendimento para pet shop.'],
+    'painel-entregas': ['Demonstração de painel de logística pet | DevFlow Digital', 'Prévia de painel para consultar rotas de busca e entrega e acompanhar etapas de pedidos de demonstração.'],
+    'cardapio-digital': ['Demonstração de cardápio digital | DevFlow Digital', 'Prévia de cardápio com busca, categorias e sacola para pedidos de demonstração.'],
+  }
+  const projectSlug = currentPath.match(/^\/projetos\/([^/]+)$/)?.[1]
   const meta = currentService
     ? { title: `${currentService.title} para empresas | DevFlow Digital`, description: serviceDetails[currentService.id]?.intro }
     : currentSegment
       ? { title: `Soluções para ${currentSegment.name} | DevFlow Digital`, description: segmentDetails[currentSegment.id]?.intro }
-      : location.pathname === '/projetos'
-        ? { title: 'Projetos reais | DevFlow Digital', description: 'Conheça os projetos e demonstrações digitais da DevFlow Digital.' }
-        : location.pathname === '/servicos'
+          : projectSlug && projectMeta[projectSlug]
+            ? { title: projectMeta[projectSlug][0], description: projectMeta[projectSlug][1] }
+            : currentPath === '/projetos'
+        ? { title: 'Demonstrações de projetos | DevFlow Digital', description: 'Explore demonstrações interativas de sites e sistemas para diferentes tipos de negócio.' }
+            : currentPath === '/servicos'
           ? { title: 'Sites, CRM e agentes de IA | DevFlow Digital', description: 'Soluções digitais personalizadas: sites, organização de clientes e vendas, e automações com agentes de inteligência artificial.' }
-          : location.pathname === '/sobre'
+            : currentPath === '/privacidade'
+              ? { title: 'Privacidade e uso de dados | DevFlow Digital', description: 'Entenda quais dados o formulário da DevFlow solicita e como o contato é encaminhado ao WhatsApp.' }
+              : currentPath === '/sobre'
             ? { title: 'Sobre a DevFlow Digital', description: 'Conheça a DevFlow Digital e como desenvolvemos soluções digitais para empresas.' }
-            : location.pathname === '/contato'
+            : currentPath === '/contato'
               ? { title: 'Fale com a DevFlow Digital', description: 'Conte sobre seu negócio e converse com a DevFlow Digital pelo WhatsApp.' }
               : { title: 'DevFlow Digital | Soluções digitais para empresas', description: 'Sites, gestão de clientes e vendas, e agentes de inteligência artificial para negócios.' }
   useEffect(() => {
@@ -523,7 +520,11 @@ export default function App() {
     document.querySelector('meta[name="description"]')?.setAttribute('content', meta.description)
     document.querySelector('meta[property="og:title"]')?.setAttribute('content', meta.title)
     document.querySelector('meta[property="og:description"]')?.setAttribute('content', meta.description)
-  }, [meta.title, meta.description])
+    const canonicalPath = currentPath === '/' ? '/' : `${currentPath}/`
+    const canonicalUrl = `${window.location.origin}${publicUrl(canonicalPath)}`
+    document.querySelector('link[rel="canonical"]')?.setAttribute('href', canonicalUrl)
+    document.querySelector('meta[property="og:url"]')?.setAttribute('content', canonicalUrl)
+  }, [meta.title, meta.description, currentPath])
   useEffect(() => {
     const target = location.hash ? document.querySelector(location.hash) : null
     if (target) {
@@ -533,5 +534,5 @@ export default function App() {
       window.scrollTo({ top: 0, behavior: 'auto' })
     }
   }, [location.pathname, location.hash])
-  return <><Header/><Routes location={location}><Route path="/" element={<Home/>}/><Route path="/projetos" element={<ProjectsPage/>}/><Route path="/projetos/:slug" element={<ProjectDemoPage/>}/><Route path="/servicos" element={<ServicesPage/>}/><Route path="/servicos/sites" element={<ServiceDetailPage serviceId="sites"/>}/><Route path="/servicos/crm" element={<ServiceDetailPage serviceId="clientes"/>}/><Route path="/servicos/ia" element={<ServiceDetailPage serviceId="ia"/>}/><Route path="/segmentos/restaurantes" element={<SegmentDetailPage segmentId="restaurantes"/>}/><Route path="/segmentos/distribuidoras" element={<SegmentDetailPage segmentId="distribuidoras"/>}/><Route path="/segmentos/lojas" element={<SegmentDetailPage segmentId="lojas"/>}/><Route path="/segmentos/servicos" element={<SegmentDetailPage segmentId="servicos"/>}/><Route path="/segmentos/crescimento" element={<SegmentDetailPage segmentId="crescimento"/>}/><Route path="/sobre" element={<AboutPage/>}/><Route path="/contato" element={<ContactPage/>}/><Route path="*" element={<NotFound/>}/></Routes><Footer/></>
+  return <><Header/><Routes location={location}><Route path="/" element={<Home/>}/><Route path="/projetos" element={<ProjectsPage/>}/><Route path="/projetos/:slug" element={<ProjectDemoPage/>}/><Route path="/servicos" element={<ServicesPage/>}/><Route path="/servicos/sites" element={<ServiceDetailPage serviceId="sites"/>}/><Route path="/servicos/crm" element={<ServiceDetailPage serviceId="clientes"/>}/><Route path="/servicos/ia" element={<ServiceDetailPage serviceId="ia"/>}/><Route path="/segmentos/restaurantes" element={<SegmentDetailPage segmentId="restaurantes"/>}/><Route path="/segmentos/distribuidoras" element={<SegmentDetailPage segmentId="distribuidoras"/>}/><Route path="/segmentos/lojas" element={<SegmentDetailPage segmentId="lojas"/>}/><Route path="/segmentos/servicos" element={<SegmentDetailPage segmentId="servicos"/>}/><Route path="/segmentos/crescimento" element={<SegmentDetailPage segmentId="crescimento"/>}/><Route path="/sobre" element={<AboutPage/>}/><Route path="/contato" element={<ContactPage/>}/><Route path="/privacidade" element={<PrivacyPage/>}/><Route path="*" element={<NotFound/>}/></Routes><Footer/></>
 }

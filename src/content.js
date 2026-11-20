@@ -5,10 +5,10 @@ export const studio = {
   phone: '+55 (81) 99467-3091',
   whatsapp: '5581994673091', // somente números, com código do país
   instagram: 'https://www.instagram.com/devflowdigital.com.br/',
-  about: 'Este espaço será preenchido com a apresentação da empresa enviada por você.',
+  about: 'A DevFlow Digital desenvolve sites, sistemas para organizar clientes e vendas, e agentes de inteligência artificial para empresas. O trabalho começa pela compreensão da rotina e do problema que a empresa quer resolver. A partir disso, a solução é planejada, desenvolvida e apresentada para revisão antes da publicação. Para iniciar uma conversa, conte seu caso pelo formulário de contato ou pelo WhatsApp.',
 }
 
-// Projetos reais vêm de public/projects.json; não há clientes fictícios no portfólio.
+// O catálogo só contém demonstrações identificadas; não presume trabalhos entregues ou clientes.
 export const projectSlots = ['Projeto 01', 'Projeto 02', 'Projeto 03', 'Projeto 04']
 
 export const services = [

@@ -129,12 +129,22 @@ function abrirModal(id) {
   __lastActiveEl = document.activeElement;
 
   el.style.display = 'flex';
-  el.setAttribute('role', 'dialog');
-  el.setAttribute('aria-modal', 'true');
   el.removeAttribute('aria-hidden');
+  const dialog = el.querySelector('[role="dialog"]') || el.querySelector('.modal-content');
+  const heading = dialog?.querySelector('h1, h2, h3');
+  if (dialog) {
+    dialog.setAttribute('role', 'dialog');
+    dialog.setAttribute('aria-modal', 'true');
+    if (heading) {
+      if (!heading.id) heading.id = `${id}-title`;
+      dialog.setAttribute('aria-labelledby', heading.id);
+    }
+  }
 
+  const preferred = dialog?.querySelector('[autofocus]')
+    || [...(dialog?.querySelectorAll('input:not([type="hidden"]):not([disabled]), select:not([disabled]), textarea:not([disabled])') || [])].find(item => item.getClientRects().length);
   const focusables = __getFocusable(el);
-  (focusables[0] || el).focus();
+  (preferred || focusables[0] || dialog || el).focus();
 
   el.addEventListener('keydown', __trapKeydown);
 
@@ -150,7 +160,8 @@ function fecharModal(id) {
 
   el.style.display = 'none';
   el.setAttribute('aria-hidden', 'true');
-  el.removeAttribute('aria-modal');
+  const dialog = el.querySelector('[role="dialog"]');
+  dialog?.removeAttribute('aria-modal');
   el.removeEventListener('keydown', __trapKeydown);
 
   if (el.__escHandler) {
@@ -165,40 +176,8 @@ function fecharModal(id) {
 
 window.fecharModal = fecharModal;
 
-// ===== Persistência (RA Club) =====
-function salvarContextoSessao() {
-  try {
-    sessionStorage.setItem('agendamentoCtx', JSON.stringify(agendamentoContexto));
-    sessionStorage.setItem('ctx', JSON.stringify(ctx));
-  } catch { }
-}
-
-function restaurarContextoSessao() {
-  try {
-    const c1 = sessionStorage.getItem('agendamentoCtx');
-    const c2 = sessionStorage.getItem('ctx');
-    if (c1) agendamentoContexto = JSON.parse(c1);
-    if (c2) ctx = JSON.parse(c2);
-  } catch { }
-}
-
-function tentarRetomarPosCheckout() {
-  const flag = sessionStorage.getItem('raclubCheckoutRedirect');
-  if (flag === '1') {
-    sessionStorage.removeItem('raclubCheckoutRedirect');
-    restaurarContextoSessao();
-
-    if (ctx?.colecao && (ctx?.profissionalNome || ctx?.profissionalId)) {
-      agendamentoContexto.raclub = { status: 'assinar_link' };
-      fecharModal('modalRAClub');
-      abrirModalAgendamento();
-    }
-  }
-}
-
-document.addEventListener('visibilitychange', () => {
-  if (document.visibilityState === 'visible') tentarRetomarPosCheckout();
-});
+// A prévia mantém os dados apenas em memória durante esta visita.
+function salvarContextoSessao() { /* Não persiste dados de teste. */ }
 
 // ===== Fluxo Nome → RA Club → Agendamento =====
 const nomeClienteInput = document.getElementById('nomeCliente');
@@ -259,12 +238,8 @@ btnRANao?.addEventListener('click', () => {
 });
 
 if (btnRAAssinar) {
-  const RA_CLUB_CHECKOUT_URL = btnRAAssinar.getAttribute('href') || '';
   btnRAAssinar.addEventListener('click', () => {
-    agendamentoContexto.raclub = { status: 'assinar_link' };
-    salvarContextoSessao();
-    sessionStorage.setItem('raclubCheckoutRedirect', '1');
-    if (!RA_CLUB_CHECKOUT_URL) alert('Link de checkout não configurado.');
+    document.dispatchEvent(new CustomEvent('demo:external-action', { detail: 'A assinatura é apenas ilustrativa nesta prévia; nenhum pagamento será iniciado.' }));
   });
 }
 
@@ -1113,9 +1088,6 @@ window.addEventListener('click', (e) => {
     if (e.target === m) m.style.display = 'none';
   });
 });
-
-// Retomar fluxo pós-checkout
-tentarRetomarPosCheckout();
 
 // ---------------------------------------------------------------------
 //        REAGENDAMENTO

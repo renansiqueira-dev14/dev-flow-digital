@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Site de salão de beleza",
+    "slug": "salao-beleza",
+    "segment": "Beleza",
+    "description": "Apresentação de serviços, escolha de profissional e fluxo visual para solicitar ou reagendar horários.",
+    "status": "Protótipo demonstrativo",
+    "objective": "Mostrar como uma pessoa pode conhecer os serviços de beleza e iniciar uma solicitação de horário pelo site.",
+    "features": ["Apresentação de serviços", "Fluxo visual de agendamento", "Prévia de informações e avaliações ilustrativas"],
+    "image": "/projects/salao-beleza.jpg",
+    "demoUrl": "/project-demos/salao/index.html",
+    "serviceId": "sites"
+  },
+  {
+    "name": "Site para pet shop",
+    "slug": "pet-shop",
+    "segment": "Pet shop",
+    "description": "Demonstração de site para pet shop, com apresentação de serviços de cuidado e caminho visual para solicitar atendimento.",
+    "status": "Protótipo demonstrativo",
+    "objective": "Apresentar serviços de cuidado para pets e organizar as informações que uma pessoa precisa antes de entrar em contato.",
+    "features": ["Serviços e imagens", "Informações de atendimento", "Fluxo visual de solicitação"],
+    "image": "/projects/petshop.jpg",
+    "demoUrl": "/project-demos/petshop/index.html",
+    "serviceId": "sites"
+  },
+  {
+    "name": "Painel de buscas e entregas para pet shop",
+    "slug": "painel-entregas",
+    "segment": "Logística pet",
+    "description": "Painel demonstrativo para operação de busca e entrega de um pet shop. Os pedidos e contatos exibidos são fictícios.",
+    "status": "Protótipo demonstrativo com dados fictícios",
+    "objective": "Demonstrar como uma equipe de entrega pode consultar rotas, filtrar pedidos e atualizar etapas de busca e entrega.",
+    "features": ["Agenda de rotas", "Filtros por data e status", "Atualização de etapa", "Dados de exemplo sem conexão com banco"],
+    "image": "/projects/painel-entregas.svg",
+    "demoUrl": "/project-demos/buscaentrega/index.html",
+    "serviceId": "clientes"
+  },
+  {
+    "name": "Cardápio digital e pedidos",
+    "slug": "cardapio-digital",
+    "segment": "Restaurantes",
+    "description": "Protótipo demonstrativo de cardápio por categorias com busca, adicionais, sacola e fluxo de pedidos para celular.",
+    "status": "Protótipo demonstrativo",
+    "objective": "Mostrar como um cliente pode explorar um cardápio, personalizar itens e preparar uma solicitação de pedido.",
+    "features": ["Categorias e busca", "Detalhes e adicionais de produtos", "Sacola demonstrativa", "Sem envio de pedido real"],
+    "image": "/projects/cardapio-online50k.png",
+    "demoUrl": "/project-demos/cardapio/index.html",
+    "serviceId": "sites"
+  }
+]

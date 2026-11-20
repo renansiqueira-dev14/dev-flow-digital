@@ -1,9 +1,11 @@
 import React from 'react'
-import { createRoot } from 'react-dom/client'
+import { createRoot, hydrateRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App.jsx'
 import './styles.css'
+import './improvements.css'
 
-createRoot(document.getElementById('root')).render(
-  <React.StrictMode><BrowserRouter basename={import.meta.env.BASE_URL}><App /></BrowserRouter></React.StrictMode>,
-)
+const root = document.getElementById('root')
+const application = <React.StrictMode><BrowserRouter basename={import.meta.env.BASE_URL}><App /></BrowserRouter></React.StrictMode>
+if (root.hasChildNodes()) hydrateRoot(root, application)
+else createRoot(root).render(application)

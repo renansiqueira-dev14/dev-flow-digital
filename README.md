@@ -14,27 +14,34 @@ Site institucional responsivo em React + Vite, com páginas para início, projet
 - `src/content.js`: e-mail, telefone, WhatsApp, Instagram, serviços, segmentos, páginas de detalhe, diferenciais e processo.
 - `src/App.jsx`: conteúdo e estrutura das páginas, navegação, formulário, planeta interativo e demonstração do CRM.
 - `src/styles.css`: cores, tipografia e estilos responsivos.
-- `public/projects.json`: projetos e demonstrações do portfólio, sem editar os componentes do site.
+- `src/projects.json`: demonstrações do portfólio, sem editar os componentes do site.
 
-WhatsApp e e-mail foram configurados. O texto institucional e o Instagram ainda podem ser completados com as informações definitivas da empresa.
+WhatsApp e e-mail estão configurados. O formulário abre uma mensagem para revisão no WhatsApp e não grava os dados num servidor da DevFlow. Consulte `/privacidade` para a explicação do fluxo; a empresa deve revisar o texto antes da publicação final.
 
 ## Adicionar um projeto
 
-Adicione um objeto a `public/projects.json`, seguindo este formato:
+Adicione um objeto a `src/projects.json`, seguindo este formato:
 
 ```json
 {
   "name": "Nome do projeto",
   "slug": "nome-do-projeto",
   "segment": "Restaurante",
-  "description": "Descrição breve da solução desenvolvida.",
+  "description": "Descrição breve da demonstração.",
+  "status": "Protótipo demonstrativo",
+  "objective": "O que esta demonstração ilustra.",
+  "features": ["Recurso demonstrado"],
   "image": "/projects/restaurante.jpg",
   "demoUrl": "/project-demos/restaurante/index.html",
   "serviceId": "sites"
 }
 ```
 
-Coloque as imagens dentro de `public/projects/` e os arquivos da prévia em `public/project-demos/<slug>/`. Os cartões abrem uma página própria do portfólio que incorpora a prévia em um iframe. O portfólio lê `projects.json` ao abrir; não precisa adicionar links de repositório GitHub nos cartões.
+Coloque as imagens dentro de `public/projects/` e os arquivos da prévia em `public/project-demos/<slug>/`. Os cartões abrem uma página própria do portfólio que incorpora a prévia em um iframe. Os dados são importados com o aplicativo, sem uma requisição adicional ao catálogo.
+
+## Rotas, busca e publicação
+
+O comando `npm run build` gera uma página HTML para cada rota pública, com título, descrição e URL canônica próprios. Também cria `sitemap.xml` e `robots.txt` para o domínio GitHub Pages configurado em `scripts/generate-pages.mjs`. Atualize domínio e caminho do repositório nesse script se a URL pública mudar.
 
 As demonstrações que dependem de Firebase usam dados de exemplo ou ficam sem conexão a um banco. Formulários, contatos, pagamentos e agendamentos exibidos nas prévias não enviam dados reais.
 

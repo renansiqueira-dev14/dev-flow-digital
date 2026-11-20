@@ -31,7 +31,7 @@
   <link rel="stylesheet" href="./css/cliente.css">
 
   <script>
-    // O sandbox do iframe não oferece armazenamento persistente; usa memória para esta prévia.
+    // Esta prévia usa armazenamento em memória para não persistir pedidos neste navegador.
     (() => {
       const makeMemoryStorage = () => {
         const values = new Map();
@@ -45,8 +45,7 @@
         };
       };
       for (const key of ['localStorage', 'sessionStorage']) {
-        try { window[key].getItem('__devflow_preview_check__'); }
-        catch { Object.defineProperty(window, key, { configurable: true, value: makeMemoryStorage() }); }
+        Object.defineProperty(window, key, { configurable: true, value: makeMemoryStorage() });
       }
     })();
   </script>

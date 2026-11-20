@@ -1,0 +1,21 @@
+/* Finishing details for clarity, privacy, and small-screen composition. */
+.project-context{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0 0 16px;padding:17px;border:1px solid rgba(220,220,215,.13);background:rgba(255,255,255,.025)}
+.project-context>div{min-width:0}.project-context .eyebrow{font-size:9px;color:var(--gold)}.project-context p{margin:8px 0 0;color:#bbc0b7;font-size:12px;line-height:1.7}
+.about-page-grid>div>p:first-child{max-width:790px;margin:0 0 24px;color:#c6cbc3;font-size:16px;line-height:1.9}
+.about-offerings{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.about-offerings article,.about-process article{min-width:0;padding:19px;border:1px solid var(--line);background:linear-gradient(145deg,rgba(255,255,255,.025),transparent)}
+.about-offerings article>span,.about-process article>span{color:var(--gold);font-size:9px;letter-spacing:.12em}
+.about-offerings h2,.about-process h2{margin:14px 0 8px;color:#f0f1ec;font-size:19px;letter-spacing:-.03em}
+.about-offerings p,.about-process p{margin:0;color:#aeb4aa;font-size:12px;line-height:1.75}
+.about-process{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:20px}
+.about-process article h2{font-size:16px}
+.about-next-step{display:flex;align-items:center;justify-content:space-between;gap:22px;margin-top:18px;padding:20px;border:1px solid rgba(216,189,132,.25);background:rgba(216,189,132,.04)}
+.about-next-step strong{color:#e9e6dc;font-size:15px}.about-next-step p{max-width:760px;margin:6px 0 0;color:#adb4aa;font-size:12px;line-height:1.7}.about-next-step .button{flex:0 0 auto}
+.privacy-page{padding-top:48px}.privacy-content{max-width:850px;color:#c2c8bf;font-size:14px;line-height:1.85}.privacy-content h2{margin:30px 0 7px;color:#f1f1eb;font-size:21px;letter-spacing:-.02em}.privacy-content p{margin:0 0 13px}.privacy-content a:not(.text-link){color:#dfc995;text-underline-offset:3px}.privacy-review-note{margin:24px 0!important;padding:14px 17px;border-left:2px solid var(--gold);background:rgba(216,189,132,.045);color:#d0c7af}
+.contact-form .privacy-consent{display:grid;grid-template-columns:20px minmax(0,1fr);align-items:start;gap:10px;color:#afb7ae;font-size:11px;line-height:1.65}
+.contact-form .privacy-consent input{width:18px;height:18px;margin:1px 0 0;accent-color:#bba26d}
+.contact-form .privacy-consent a,.contact-form .form-note a{color:#e0c990;text-underline-offset:3px}
+.contact-form .form-note{line-height:1.7}
+.project-demo-note{max-width:970px}
+@media(max-width:760px){.project-context{grid-template-columns:1fr;padding:14px}.project-context p{font-size:11px}.about-page-grid>div>p:first-child{font-size:14px}.about-offerings{grid-template-columns:1fr}.about-offerings article{padding:16px}.about-process{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.about-process article{padding:14px}.about-process article p{font-size:11px}.about-next-step{align-items:flex-start;flex-direction:column;padding:16px}.about-next-step .button{width:100%;justify-content:center}.privacy-page{padding-top:30px}.privacy-content{font-size:13px}.privacy-content h2{margin-top:24px;font-size:18px}}
+@media(max-width:370px){.about-process{grid-template-columns:1fr}}

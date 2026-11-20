@@ -16,6 +16,7 @@
 </head>
 
 <body>
+    <p class="demo-banner" role="status">Prévia demonstrativa · valores e dados do projeto de referência · dados digitados ficam apenas nesta página e nenhuma solicitação, mensagem ou pagamento será enviado.</p>
     <!-- Header -->
     <header>
         <nav>
@@ -53,7 +54,7 @@
                 <img src="./assets/cabelo-escovado.jpg" alt="Escova Modelada" class="service-img">
                 <div class="haircut-info">
                     <strong>Escova Modelada</strong>
-                    <a href="#">R$ 60,00</a>
+                    <span>R$ 60,00</span>
                 </div>
             </div>
 
@@ -61,7 +62,7 @@
                 <img src="./assets/cabelo-hidratado.jpg" alt="Hidratação Premium" class="service-img">
                 <div class="haircut-info">
                     <strong>Hidratação Premium</strong>
-                    <a href="#">R$ 80,00</a>
+                    <span>R$ 80,00</span>
                 </div>
             </div>
 
@@ -69,7 +70,7 @@
                 <img src="./assets/sobrancelha.jpg" alt="Design de Sobrancelhas" class="service-img">
                 <div class="haircut-info">
                     <strong>Design de Sobrancelhas</strong>
-                    <a href="#">R$ 35,00</a>
+                    <span>R$ 35,00</span>
                 </div>
             </div>
         </section>
@@ -106,64 +107,37 @@
     </section>
 
     <!-- Testimonials -->
-    <section class="testimonials" id="testimonials">
-        <div class="container">
-            <h2 class="section-title">O Que Nossas Clientes Dizem</h2>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="stars">★★★★★</div>
-                    <p class="testimonial-text">"Simplesmente incrível! A equipe é super atenciosa e o resultado do meu
-                        cabelo ficou perfeito. Recomendo de olhos fechados!"</p>
-                    <p class="testimonial-author">- Alessandra</p>
-                </div>
-                <div class="testimonial-card">
-                    <div class="stars">★★★★★</div>
-                    <p class="testimonial-text">"Ambiente acolhedor e profissionais extremamente capacitadas. Sempre
-                        saio de lá me sentindo renovada, confiante e ainda mais linda!"</p>
-                    <p class="testimonial-author">- Fernanda</p>
-                </div>
-                <div class="testimonial-card">
-                    <div class="stars">★★★★★</div>
-                    <p class="testimonial-text">"O melhor salão da região! Preços justos, ótimo atendimento e serviços
-                        de muita qualidade. Sou cliente fiel há anos."</p>
-                    <p class="testimonial-author">- Marcela</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <section class="testimonials" id="testimonials"><div class="container"><h2 class="section-title">Avaliações e confiança</h2><p class="demo-data-note">Esta prévia não exibe depoimentos. Em um site publicado, use somente avaliações reais, autorizadas e verificáveis.</p></div></section>
 
     <!-- Map -->
     <div class="iframe">
         <h2 class="iframe-title">Venha nos conhecer</h2>
     </div>
 
-    <iframe width="100%"
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3950.5545758855133!2d-34.91911782499232!3d-8.044771791982418!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7ab19101d637c1b%3A0xd897be551065e4ca!2sR.%20Cantora%20Clara%20Nunes%2C%20Recife%20-%20PE%2C%2050711-550!5e0!3m2!1spt-BR!2sbr!4v1773969789034!5m2!1spt-BR!2sbr"
-        width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <p class="demo-data-note">Endereço e telefone exibidos no rodapé vieram do projeto de referência. Confirme-os com a empresa antes de publicar.</p>
 
     <!-- Footer -->
     <footer>
         <div class="social-links">
-            <a href="https://www.instagram.com/barbeariaratorre2/" target="_blank"><i class='bx bxl-instagram'></i></a>
-            <a href="#"><i class='bx bxl-facebook'></i></a>
-            <a href="https://wa.me/5581983704290" target="_blank"><i class='bx bxl-whatsapp'></i></a>
+            <button type="button" class="demo-external-action" aria-label="Instagram demonstrativo"><i class='bx bxl-instagram'></i></button>
+            <button type="button" class="demo-external-action" aria-label="Facebook demonstrativo"><i class='bx bxl-facebook'></i></button>
+            <button type="button" class="demo-external-action" aria-label="WhatsApp demonstrativo"><i class='bx bxl-whatsapp'></i></button>
         </div>
         <p>&copy; 2025 Studio de Beleza RA. Todos os direitos reservados.</p>
         <p>📍 Rua Lagoa do Rancho, 163 - Torre | ☎️ (81) 98370-4290</p>
     </footer>
 
     <!-- WhatsApp Float -->
-    <a href="https://wa.me/5581983704290" class="whatsapp-float" target="_blank">
+    <button type="button" class="whatsapp-float demo-external-action" aria-label="Testar WhatsApp demonstrativo">
         <i class='bx bxl-whatsapp'></i>
-    </a>
+    </button>
 
     <!-- ===== MODAIS ===== -->
 
     <!-- 1) Modal de Agendamento -->
     <div id="modal" class="modal" aria-hidden="true">
         <div class="modal-content" role="dialog" aria-modal="true">
-            <span class="close" onclick="fecharModal('modal')">&times;</span>
+            <button type="button" class="close" aria-label="Fechar agendamento" onclick="fecharModal('modal')">&times;</button>
             <h2>Escolha seu horário</h2>
 
             <label for="data">Data:</label>
@@ -184,7 +158,7 @@
     <!-- 2) Modal do Cliente -->
     <div id="modalCliente" class="modal" aria-hidden="true">
         <div class="modal-content" role="dialog" aria-modal="true">
-            <span class="close" onclick="fecharModal('modalCliente')">&times;</span>
+            <button type="button" class="close" aria-label="Fechar dados do cliente" onclick="fecharModal('modalCliente')">&times;</button>
             <h2>Seus dados</h2>
 
             <label for="nomeCliente">Nome</label>
@@ -217,10 +191,7 @@
             <div class="row-actions">
                 <button type="button" id="btnRAJaMembro" class="btn-secondary">Já faço parte</button>
                 <button type="button" id="btnRANao" class="btn-secondary">Agora não</button>
-                <a id="btnRAAssinar" class="btn-primary"
-                    href="https://app.galaxpay.com.br/landingpage8230852/barbeariara" target="_blank" rel="noopener">
-                    Quero assinar
-                </a>
+                <button id="btnRAAssinar" type="button" class="btn-primary demo-external-action">Ver assinatura demonstrativa</button>
             </div>
 
             <div id="raForm" class="hidden" aria-hidden="true"></div>
@@ -232,7 +203,7 @@
         <div class="modal-content svc-sheet" role="dialog" aria-modal="true">
             <div class="svc-header">
                 <div class="svc-title">Selecionar serviço</div>
-                <span class="svc-close" onclick="fecharModal('servicoModal')">&times;</span>
+                <button type="button" class="svc-close" aria-label="Fechar seleção de serviço" onclick="fecharModal('servicoModal')">&times;</button>
             </div>
 
             <div class="svc-search">
@@ -253,7 +224,7 @@
     <!-- ===== Modal de Confirmação ===== -->
     <div id="modalConfirmacao" class="modal" aria-hidden="true">
         <div class="modal-content" role="dialog" aria-modal="true">
-            <span class="close" onclick="fecharModal('modalConfirmacao')">&times;</span>
+            <button type="button" class="close" aria-label="Fechar confirmação" onclick="fecharModal('modalConfirmacao')">&times;</button>
             <h2>Agendamento Confirmado ✨</h2>
             <div id="confResumo" class="conf-resumo"></div>
             <button type="button" id="btnOkConfirmacao">OK</button>
@@ -263,7 +234,7 @@
     <!-- ===== Modal de Reagendamento ===== -->
     <div id="modalReagendar" class="modal" aria-hidden="true">
         <div class="modal-content" role="dialog" aria-modal="true">
-            <span class="close" onclick="fecharModal('modalReagendar')">&times;</span>
+            <button type="button" class="close" aria-label="Fechar reagendamento" onclick="fecharModal('modalReagendar')">&times;</button>
             <h2>Reagendar seu horário</h2>
 
             <!-- Etapa 1: Busca -->
@@ -295,6 +266,7 @@
     </div>
 
     <script type="module" src="./script.js"></script>
+    <script defer src="../demo-actions.js"></script>
 </body>
 
 </html>

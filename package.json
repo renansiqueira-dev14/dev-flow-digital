@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "vite build && node scripts/generate-pages.mjs",
+    "preview": "vite preview",
+    "verify:static": "node scripts/verify-static-build.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.468.0",

@@ -1,0 +1,15 @@
+.demo-ribbon{position:relative;z-index:20;padding:10px 16px;background:#171a1b;color:#f0e6c7;text-align:center;font-size:12px;line-height:1.5;border-bottom:1px solid rgba(184,134,11,.45)}
+.haircuts{box-sizing:border-box;max-width:100%}
+.demo-note{max-width:800px;margin:12px auto;color:#6b6252;text-align:center;line-height:1.65}
+.demo-map{padding:44px 7%;background:#14191b;color:#f7f4ec;text-align:center}
+.demo-map div{max-width:760px;margin:auto;display:grid;gap:10px}
+.demo-map h2,.demo-map p{margin:0}.demo-map small{color:#c2bba9;line-height:1.6}
+.service-price{color:var(--primary-color);font-weight:700}
+.demo-contact-button{display:inline-grid;place-items:center;min-width:42px;min-height:42px;border:0;border-radius:50%;background:transparent;color:inherit;cursor:pointer}
+.demo-contact-button:hover,.demo-contact-button:focus-visible{outline:2px solid #d0a53f;outline-offset:3px}
+.whatsapp-float.demo-contact-button{background:#25d366;color:#fff}
+.modal[aria-hidden="false"]{display:flex}
+.modal-content:focus{outline:2px solid #c39b38;outline-offset:3px}
+.modal-content .close,.modal-content .svc-close{font:inherit}
+.demo-toast{position:fixed;z-index:1200;left:50%;bottom:24px;transform:translateX(-50%);width:min(560px,calc(100% - 28px));margin:0;padding:14px 18px;border:1px solid rgba(208,165,63,.55);border-radius:10px;background:#171a1b;color:#f4edda;box-shadow:0 12px 35px #0008;text-align:center;line-height:1.5}
+@media(max-width:600px){.demo-ribbon{font-size:10px;padding:9px 12px}.haircuts{padding-left:12px;padding-right:12px}.demo-map{padding:32px 18px}.demo-toast{bottom:14px;font-size:13px}}

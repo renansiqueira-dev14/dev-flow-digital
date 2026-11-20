@@ -37,6 +37,7 @@ const state = {
     filteredItems: [],
     selectedItem: null
 };
+let modalReturnFocus = null;
 
 /* ========= Elementos ========= */
 const els = {
@@ -217,6 +218,7 @@ function mapDoc(docSnap) {
 function openModal({ title = "", body = "", buttons = [] }) {
     if (!els.modal.root) return;
 
+    modalReturnFocus = document.activeElement;
     els.modal.title.innerHTML = title;
     els.modal.body.innerHTML = body;
     els.modal.footer.innerHTML = "";
@@ -239,10 +241,22 @@ function openModal({ title = "", body = "", buttons = [] }) {
     });
 
     els.modal.root.classList.remove("hidden");
+    els.modal.root.setAttribute("aria-hidden", "false");
+    const dialog = els.modal.root.querySelector('[role="dialog"]');
+    dialog?.setAttribute("aria-modal", "true");
+    requestAnimationFrame(() => {
+        const firstField = els.modal.root.querySelector('#modalBody input, #modalBody select, #modalBody textarea');
+        (firstField || els.modal.close || dialog)?.focus();
+    });
 }
 
 function closeModal() {
-    els.modal.root?.classList.add("hidden");
+    if (!els.modal.root) return;
+    els.modal.root.classList.add("hidden");
+    els.modal.root.setAttribute("aria-hidden", "true");
+    els.modal.root.querySelector('[role="dialog"]')?.setAttribute("aria-modal", "false");
+    if (modalReturnFocus?.isConnected) modalReturnFocus.focus();
+    modalReturnFocus = null;
 }
 
 function bindModalEvents() {
@@ -250,6 +264,17 @@ function bindModalEvents() {
 
     els.modal.root?.addEventListener("click", (e) => {
         if (e.target === els.modal.root) closeModal();
+    });
+
+    els.modal.root?.addEventListener("keydown", (e) => {
+        if (e.key !== "Tab") return;
+        const focusable = [...els.modal.root.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])')]
+            .filter(item => item.getClientRects().length > 0);
+        if (!focusable.length) { e.preventDefault(); return; }
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     });
 
     document.addEventListener("keydown", (e) => {
