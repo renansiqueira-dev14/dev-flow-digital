@@ -6,8 +6,8 @@ import { StaticRouter } from 'react-router-dom/server.js'
 import { createServer } from 'vite'
 
 const dist = path.resolve('dist')
-const base = '/dev-flow-digital/'
-const origin = 'https://renansiqueira-dev14.github.io'
+const base = `/${(process.env.SITE_BASE_PATH || '').replace(/^\/+|\/+$/g, '')}${process.env.SITE_BASE_PATH ? '/' : ''}`
+const origin = (process.env.SITE_ORIGIN || 'https://dev-flow-digital.lovable.app').replace(/\/$/, '')
 const projectRows = JSON.parse(await readFile(path.resolve('src/projects.json'), 'utf8'))
 const routes = [
   { path: '/', title: 'DevFlow Digital | Sites, CRM e agentes de IA', description: 'Sites personalizados, organização de clientes e vendas e agentes de inteligência artificial para empresas.' },

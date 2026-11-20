@@ -41,7 +41,7 @@ Coloque as imagens dentro de `public/projects/` e os arquivos da prévia em `pub
 
 ## Rotas, busca e publicação
 
-O comando `npm run build` gera uma página HTML para cada rota pública, com título, descrição e URL canônica próprios. Também cria `sitemap.xml` e `robots.txt` para o domínio GitHub Pages configurado em `scripts/generate-pages.mjs`. Atualize domínio e caminho do repositório nesse script se a URL pública mudar.
+O comando `npm run build` gera uma página HTML para cada rota pública, com título, descrição e URL canônica próprios, além de `sitemap.xml` e `robots.txt`. Por padrão, a saída usa o domínio raiz do Lovable (`https://dev-flow-digital.lovable.app`). No GitHub Pages, o workflow define `SITE_ORIGIN` e `SITE_BASE_PATH` para gerar os endereços daquele deploy. Para outro domínio, configure essas duas variáveis no ambiente de build.
 
 As demonstrações que dependem de Firebase usam dados de exemplo ou ficam sem conexão a um banco. Formulários, contatos, pagamentos e agendamentos exibidos nas prévias não enviam dados reais.
 
