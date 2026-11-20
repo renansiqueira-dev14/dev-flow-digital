@@ -1,0 +1,328 @@
+/* Desktop composition. Phone and narrow tablet rules remain in styles.css. */
+@media (min-width: 761px) {
+  .container {
+    width: min(1160px, calc(100% - clamp(56px, 9vw, 160px)));
+  }
+
+  .header {
+    height: 76px;
+  }
+
+  .header-inner {
+    gap: clamp(20px, 3vw, 42px);
+  }
+
+  .header-inner > .nav {
+    gap: clamp(16px, 2.2vw, 30px);
+  }
+
+  .header-inner > .nav .nav-link {
+    font-size: 12px;
+  }
+
+  .header-inner > .nav .nav-cta {
+    padding: 12px 15px;
+    font-size: 11px;
+  }
+
+  .services-hero {
+    min-height: 0;
+  }
+
+  .services-hero-content {
+    padding: 34px 0 0;
+  }
+
+  .services-hero-heading {
+    width: min(100%, 1060px);
+    margin-inline: auto;
+    grid-template-columns: minmax(0, 1.12fr) minmax(320px, 0.88fr);
+    column-gap: clamp(36px, 5vw, 72px);
+    align-items: center;
+  }
+
+  .services-hero-heading > .eyebrow {
+    margin-bottom: 2px;
+  }
+
+  .services-hero-heading h1 {
+    max-width: 660px;
+    font-size: clamp(48px, 5.3vw, 68px);
+    line-height: 1.02;
+    margin: 16px 0 0;
+  }
+
+  .services-hero-heading > p {
+    max-width: 455px;
+    margin: 28px 0 0;
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  .services-hero-heading > .hero-actions {
+    grid-column: 2;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin: 18px 0 0;
+  }
+
+  .services-hero-heading > .hero-actions .button {
+    min-height: 44px;
+    padding: 11px 15px;
+    gap: 10px;
+    font-size: 11px;
+  }
+
+  .services-hero .service-universe {
+    width: min(100%, 1120px);
+    height: 390px;
+    margin: 4px auto 0;
+    overflow: visible;
+  }
+
+  .services-hero .orbit-system {
+    width: 370px;
+    height: 370px;
+    top: 48%;
+  }
+
+  .services-hero .service-node {
+    width: clamp(230px, 23vw, 270px);
+    min-height: 76px;
+    padding: 12px 14px;
+    gap: 13px;
+  }
+
+  .services-hero .service-node-sites {
+    left: 0;
+    top: 49%;
+    transform: translateY(-50%);
+  }
+
+  .services-hero .service-node-sites:hover,
+  .services-hero .service-node-sites.is-active {
+    transform: translateY(calc(-50% - 5px));
+  }
+
+  .services-hero .service-node-clientes {
+    right: 0;
+    top: 49%;
+    transform: translateY(-50%);
+  }
+
+  .services-hero .service-node-clientes:hover,
+  .services-hero .service-node-clientes.is-active {
+    transform: translateY(calc(-50% - 5px));
+  }
+
+  .services-hero .service-node-ia {
+    left: 50%;
+    top: 85%;
+    bottom: auto;
+    transform: translate(-50%, -50%);
+  }
+
+  .services-hero .service-node-ia:hover,
+  .services-hero .service-node-ia.is-active {
+    transform: translate(-50%, calc(-50% - 5px));
+  }
+
+  .services-hero .universe-caption {
+    bottom: 2px;
+  }
+
+  .services-hero > .container.hero-bottom {
+    height: 48px;
+    margin-top: 0;
+  }
+
+  .section {
+    padding-block: clamp(68px, 6vw, 84px);
+  }
+
+  .section-heading {
+    margin-bottom: 34px;
+    gap: 32px;
+  }
+
+  .section-heading h2 {
+    max-width: 760px;
+    font-size: clamp(40px, 4vw, 54px);
+    margin: 16px 0 10px;
+  }
+
+  .section-heading p {
+    max-width: 460px;
+    font-size: 13px;
+  }
+
+  .services-preview .service-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .services-preview .service-card {
+    min-height: 232px;
+    padding: 24px;
+  }
+
+  .services-preview .service-card:nth-child(3) {
+    border-right: 0;
+  }
+
+  .services-preview .service-card:nth-child(2) {
+    border-right: 1px solid var(--line);
+  }
+
+  .services-preview .service-card h3 {
+    margin-top: 28px;
+    font-size: 19px;
+  }
+
+  .services-preview .service-card p {
+    max-width: 280px;
+    font-size: 11px;
+  }
+
+  .home-service-demos {
+    display: grid;
+    gap: 24px;
+    margin-top: 30px;
+  }
+
+  .service-demo-section {
+    padding: 14px 0 4px;
+  }
+
+  .service-demo {
+    padding: clamp(26px, 3vw, 38px);
+  }
+
+  .service-demo-heading {
+    margin-bottom: 20px;
+  }
+
+  .site-demo-window,
+  .crm-app-window,
+  .agent-demo-window {
+    width: 100%;
+    max-width: 100%;
+    margin-inline: auto;
+  }
+
+  .site-live-preview iframe {
+    height: clamp(640px, 64vw, 760px);
+  }
+
+  .crm-demo-section,
+  .agent-demo-section {
+    padding-block: 14px 4px;
+  }
+
+  .segments-section .segments-list {
+    max-width: 1000px;
+    margin-inline: auto;
+  }
+
+  .segment-row-link {
+    padding-block: 17px;
+  }
+
+  .portfolio-preview .project-grid,
+  .page-projects .project-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .portfolio-preview .project-art,
+  .page-projects .project-art {
+    height: clamp(210px, 20vw, 270px);
+  }
+
+  .page-hero {
+    padding: 76px 0 64px;
+  }
+
+  .page-hero h1 {
+    max-width: 900px;
+    font-size: clamp(56px, 6vw, 76px);
+  }
+
+  .page-projects {
+    padding-top: 36px;
+  }
+
+  .contact-page {
+    padding-block: 78px;
+  }
+
+  .contact-grid {
+    grid-template-columns: minmax(0, 0.9fr) minmax(420px, 1.1fr);
+    align-items: start;
+    gap: clamp(44px, 6vw, 82px);
+  }
+
+  .contact-form {
+    padding: clamp(26px, 3vw, 36px);
+  }
+
+  .about-page,
+  .privacy-page {
+    padding-block: 76px;
+  }
+
+  .about-page-grid {
+    gap: clamp(42px, 6vw, 76px);
+  }
+
+  .about-offerings,
+  .about-process {
+    gap: 14px;
+  }
+
+  .project-demo-detail {
+    padding-top: 24px;
+  }
+
+  .project-iframe-shell {
+    height: min(76vh, 820px);
+  }
+
+  .footer {
+    padding-top: 42px;
+  }
+}
+
+@media (min-width: 761px) and (max-width: 1020px) {
+  .container {
+    width: calc(100% - 56px);
+  }
+
+  .services-hero-heading {
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.86fr);
+    column-gap: 28px;
+  }
+
+  .services-hero-heading h1 {
+    font-size: clamp(46px, 5.3vw, 56px);
+  }
+
+  .services-hero .service-node {
+    width: 218px;
+  }
+
+  .services-hero .service-node .node-copy > span {
+    white-space: normal;
+  }
+
+  .home-service-demos {
+    gap: 20px;
+  }
+}
+
+@media (min-width: 761px) and (max-width: 900px) {
+  .services-preview .service-card:nth-child(3) {
+    border-right: 0;
+  }
+}
